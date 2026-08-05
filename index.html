@@ -260,7 +260,7 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}ul{list-st
 #panel-servicios .parallax-bg::before{display:none}
 /* ── Servicios: fondo claro institucional ── */
 .srv-institutional-bg{
-  padding:52px 44px 52px;
+  padding:52px 44px 0;
   background:linear-gradient(160deg,#f0f6ff 0%,#e8f1fb 45%,#ddeaf8 100%);
   position:relative;
   overflow:hidden;
@@ -291,12 +291,11 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}ul{list-st
   border-color:rgba(169,198,232,.5)!important;
   box-shadow:0 2px 16px rgba(0,59,113,.07)!important;
 }
-/* ── Botón volver panels — fuera del banner, con fondo azul ── */
+/* ── Botón volver panels — flujo normal, no absolute ── */
 .panel-back-btn{
   display:inline-flex;align-items:center;gap:10px;
   background:var(--azul);border:none;cursor:pointer;
-  padding:10px 20px 10px 14px;
-  border-radius:0 0 10px 0;
+  padding:10px 20px 10px 14px;border-radius:0 0 10px 0;
   font-family:var(--font-sans);font-size:12px;font-weight:700;
   color:#fff;letter-spacing:.14em;text-transform:uppercase;
   transition:background .2s, color .2s;
@@ -328,6 +327,16 @@ a{text-decoration:none;color:inherit}img{max-width:100%;display:block}ul{list-st
   pointer-events:none;
 }
 .srv-senderos-bg > *{position:relative;z-index:1}
+.srv-senderos-bg.spamsu-pattern-fade-senderos::before{
+  content:'';position:absolute;inset:0;
+  background-image:url('img/patron-institucional.png');
+  background-repeat:repeat;background-size:260px 260px;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 50%,#000 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 50%,#000 100%);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  pointer-events:none;z-index:0;
+}
 /* Fondo reporte: azul claro institucional con leve profundidad */
 .srv-reporte-bg{
   background:linear-gradient(160deg,#e8f1fb 0%,#dde9f8 40%,#cfdff5 100%);
@@ -474,8 +483,6 @@ body.tab-mode .page-wave{display:none}
   text-align:justify;
   text-justify:inter-word;
   line-height:1.9;
-  hyphens:auto;
-  -webkit-hyphens:auto;
   background:rgba(169,198,232,.06);
   border-radius:0 10px 10px 0;
   max-width:72ch;
@@ -600,7 +607,7 @@ body.tab-mode .page-wave{display:none}
 .dir-dot{width:10px;height:10px;border-radius:50%;background:rgba(0,59,113,.18);display:inline-block}
 .dir-dot-active{background:var(--azul)}
 .dir-showcase-text-col{display:flex;flex-direction:column;gap:24px}
-.dir-showcase-desc{font-size:17px;color:var(--gris-txt);line-height:1.85;font-weight:300;text-align:justify}
+.dir-showcase-desc{font-size:17px;color:var(--gris-txt);line-height:1.85;font-weight:300;text-align:justify;text-justify:inter-word}
 .dir-showcase-cta{display:inline-flex;align-items:center;gap:10px;border:1.5px solid var(--azul-claro);color:var(--azul);background:transparent;font-size:16px;font-weight:500;padding:11px 26px;border-radius:9px;transition:all var(--t);align-self:flex-end;cursor:pointer;box-shadow:0 2px 8px rgba(0,59,113,.08)}
 .dir-showcase-cta:hover{background:var(--azul);color:#fff;border-color:var(--azul);box-shadow:0 4px 16px rgba(0,59,113,.18)}
 .dir-cta-arrow{font-size:18px;transition:transform var(--t)}
@@ -620,18 +627,19 @@ body.tab-mode .page-wave{display:none}
   display:block;
   width:100%;
   height:200px;
-  margin-top:-80px;
   overflow:hidden;
   pointer-events:none;
   position:relative;
-  z-index:20;
+  z-index:10;
+  margin-top:-80px;
   background-color:#ddeaf8;
+  background-image:url('img/servicios/srv-greca-decorativa.png');
+  background-repeat:no-repeat;
+  background-position:bottom center;
+  background-size:100% auto;
 }
 .srv-greca-bg img{
-  width:100%;
-  height:auto;
-  display:block;
-  margin-top:-62%;
+  display:none;
 }
 @media(max-width:900px){.srv-greca-bg{display:none}}
 .srv-card{background:var(--blanco);border:1px solid var(--gris-borde);border-radius:var(--r);overflow:hidden;transition:all var(--t);position:relative;display:block;cursor:pointer}
@@ -639,7 +647,6 @@ body.tab-mode .page-wave{display:none}
 .srv-card:hover{border-color:var(--azul-claro);box-shadow:var(--sh);transform:translateY(-4px)}
 .srv-card:hover::before{transform:scaleX(1)}
 .srv-img{aspect-ratio:16/9;position:relative;overflow:hidden;width:100%}
-/* K9: bajar la imagen para mostrar la parte inferior */
 .srv-card-k9 .srv-img img{object-position:center 80%!important}
 .srv-img [data-img]{position:absolute;inset:0;width:100%;height:100%}
 .srv-img [data-img] img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
@@ -663,8 +670,8 @@ body.tab-mode .page-wave{display:none}
 .srv-card:hover .srv-icon img{filter:brightness(0) invert(1)}
 .srv-icon svg{width:20px;height:20px;stroke:var(--azul);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke var(--t)}
 .srv-card:hover .srv-icon svg{stroke:#fff}
-.srv-title{font-family:var(--font-serif);font-size:16px;font-weight:700;color:var(--azul);margin-bottom:6px;line-height:1.3}
-.srv-desc{font-size:14px;color:var(--gris-txt);line-height:1.6;font-weight:300}
+.srv-title{font-family:var(--font-serif);font-size:16px;font-weight:700;color:var(--azul);margin-bottom:6px;line-height:1.3;text-align:justify;text-justify:inter-word}
+.srv-desc{font-size:14px;color:var(--gris-txt);line-height:1.6;font-weight:300;text-align:justify;text-justify:inter-word}
 .srv-cta{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--azul-claro);margin-top:9px;transition:gap var(--t)}
 .srv-card:hover .srv-cta{gap:9px}
 /* Senderos within servicios */
@@ -1080,16 +1087,17 @@ body.tab-mode .page-wave{display:none}
 .ep-head-sub{font-size:14px;color:rgba(255,255,255,.72);margin-top:5px;font-weight:400}
 /* Grid de tarjetas */
 .ep-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);
+  display:grid;grid-template-columns:repeat(3,1fr);
   border-bottom:1px solid var(--gris-borde);
 }
 .ep-item{
-  display:flex;flex-direction:column;align-items:flex-start;gap:8px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
   padding:22px 20px;
   border-right:1px solid var(--gris-borde);
   text-decoration:none;
   transition:background .2s ease;
   position:relative;
+  text-align:center;
 }
 .ep-item:last-child{border-right:none}
 .ep-item:nth-child(4){border-right:none}
@@ -1110,6 +1118,14 @@ body.tab-mode .page-wave{display:none}
 .ep-item-phone{font-family:var(--font-serif);font-size:18px;font-weight:700;color:var(--azul);line-height:1}
 .ep-item-desc{font-size:12px;color:var(--gris-sub);font-weight:300;line-height:1.4}
 .ep-item-link{font-size:13px;font-weight:600;color:var(--azul-claro)}
+/* Banner imagen (Línea Única) */
+.ep-banner{
+  width:100%;border-bottom:1px solid var(--gris-borde);
+  padding:18px 24px;box-sizing:border-box;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--blanco);
+}
+.ep-banner img{width:100%;height:auto;max-width:520px;display:block;object-fit:contain}
 /* Footer */
 .ep-footer{
   background:var(--blanco);padding:12px 24px;
@@ -1128,9 +1144,9 @@ body.tab-mode .page-wave{display:none}
 .ep-ext-btn svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @keyframes pls{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
 @media(max-width:700px){
-  .ep-grid{grid-template-columns:1fr 1fr}
-  .ep-item:nth-child(2n){border-right:none}
-  .ep-item:nth-child(n+3){border-top:1px solid var(--gris-borde)}
+  .ep-grid{grid-template-columns:1fr}
+  .ep-item{border-right:none!important}
+  .ep-item:not(:last-child){border-bottom:1px solid var(--gris-borde)}
   .emerg-panel-modal{max-width:98vw}
   .ep-head{padding:20px}
   .ep-head-title{font-size:20px}
@@ -2200,7 +2216,7 @@ function heroGoNovedades(){
         <button class="itab"        onclick="switchInfoTab('vision')"  id="it-vision">Visión</button>
         <button class="itab"        onclick="switchInfoTab('valores')" id="it-valores">Valores</button>
         <button class="itab"        onclick="switchInfoTab('decalogo')" id="it-decalogo">Decálogo</button>
-        <button class="itab"        onclick="switchInfoTab('logo')" id="it-logo">Conoce Nuestro Logo</button>
+        <button class="itab"        onclick="switchInfoTab('logo')" id="it-logo">Conoce nuestro logo</button>
       </div>
 
       <!-- Texto + imagen lateral -->
@@ -2381,13 +2397,13 @@ function heroGoNovedades(){
 
         <script>
         var _valoresData = [
-          {title:'Respeto y Tolerancia', img:'img/valores/puzzle-respeto.png',
+          {title:'Respeto y Tolerancia', img:'img/puzzle-respeto.png',
            text:'El respeto es un principio fundamental de la convivencia universitaria y conlleva el imperativo de la tolerancia: comprender el contexto de pluralidad en el que vivimos y asumir la responsabilidad de reconocer la relatividad de las propias convicciones, prácticas e ideas.'},
-          {title:'Convivencia Pacífica y Respeto a la Diversidad Cultural, Étnica y Personal', img:'img/valores/puzzle-convivencia.png',
+          {title:'Convivencia Pacífica y Respeto a la Diversidad Cultural, Étnica y Personal', img:'img/puzzle-convivencia.png',
            text:'Se trata de mantener relaciones pacíficas, cordiales, basadas en el diálogo equitativo y respetuoso como mecanismo para identificar desacuerdos y superarlos, a fin de evitar el ejercicio de la violencia.'},
-          {title:'Igualdad', img:'img/valores/puzzle-igualdad.png',
+          {title:'Igualdad', img:'img/puzzle-igualdad.png',
            text:'Nadie puede ser discriminado por su origen nacional o etnico, sus opiniones, genero, orientacion o preferencia sexual, religion, edad, estado civil, condicion social, laboral o de salud, discapacidades o cualquier otro motivo que atente contra la dignidad humana.'},
-          {title:'Libertad de Pensamiento y Expresion', img:'img/valores/puzzle-libertad.png',
+          {title:'Libertad de Pensamiento y Expresion', img:'img/puzzle-libertad.png',
            text:'Se relaciona con la libertad de buscar, recibir y difundir información e ideas de toda índole, sin consideración de fronteras y a través de cualquier medio, en estricto respeto a los derechos de terceros, conforme a lo establecido en la legislación universitaria.'}
         ];
 
@@ -2703,6 +2719,13 @@ function heroGoNovedades(){
 
       <!-- ── Pestaña: Conoce Nuestro Logo ── -->
       <div class="itab-pane" id="ip-logo" style="max-width:none;padding:0">
+        <div style="background:transparent;border-radius:16px;overflow:hidden">
+          <img src="img/logos/logo-banner.png" alt="Conoce nuestro logo — SPAMSU UNAM" style="width:100%;height:auto;display:block;border-radius:16px" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <!-- Fallback si no existe la imagen -->
+          <div style="display:none;background:linear-gradient(135deg,#001d40 0%,#002f60 30%,#0d4f94 70%,#1565C0 100%);border-radius:16px;padding:36px;text-align:center;min-height:200px;align-items:center;justify-content:center;flex-direction:column">
+            <span style="color:#fff;font-size:14px">No se encontró img/logo-banner.png</span>
+          </div>
+        </div>
       </div>
 
 
@@ -2894,23 +2917,23 @@ function heroGoNovedades(){
             </style>
             <div class="dmu-grid">
               <div class="dmu-img-card">
-                <img src="img/estructura/dgapsu-card-dsu.png" alt="Dirección de Seguridad Universitaria"
+                <img src="img/dgapsu-card-dsu.png" alt="Dirección de Seguridad Universitaria"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb';this.style.borderRadius='14px';this.alt='DSU'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgapsu-card-analisis.png" alt="Dirección de Análisis y Prevención de Riesgos"
+                <img src="img/dgapsu-card-analisis.png" alt="Dirección de Análisis y Prevención de Riesgos"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgapsu-card-estadio.png" alt="Estadio Olímpico Universitario"
+                <img src="img/dgapsu-card-estadio.png" alt="Estadio Olímpico Universitario"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgapsu-card-pcivil.png" alt="Dirección de Protección Civil y Bomberos"
+                <img src="img/dgapsu-card-pcivil.png" alt="Dirección de Protección Civil y Bomberos"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgapsu-card-tecnologia.png" alt="Coordinación de Gestión Tecnológica en Seguridad"
+                <img src="img/dgapsu-card-tecnologia.png" alt="Coordinación de Gestión Tecnológica en Seguridad"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
             </div>
@@ -2934,27 +2957,27 @@ function heroGoNovedades(){
           <div class="dir-modal-body">
             <div class="dmu-grid">
               <div class="dmu-img-card">
-                <img src="img/estructura/dgsgm-card-pumabus.png" alt="Pumabús"
+                <img src="img/dgsgm-card-pumabus.png" alt="Pumabús"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgsgm-card-discapacidad.png" alt="Servicios para Personas con Discapacidad"
+                <img src="img/dgsgm-card-discapacidad.png" alt="Servicios para Personas con Discapacidad"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgsgm-card-brigada.png" alt="Brigada Vial"
+                <img src="img/dgsgm-card-brigada.png" alt="Brigada Vial"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgsgm-card-bicipuma.png" alt="Bicipuma / Biciescuela"
+                <img src="img/dgsgm-card-bicipuma.png" alt="Bicipuma / Biciescuela"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgsgm-card-estacionamiento.png" alt="Estacionamientos Controlados"
+                <img src="img/dgsgm-card-estacionamiento.png" alt="Estacionamientos Controlados"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
               <div class="dmu-img-card">
-                <img src="img/estructura/dgsgm-card-moto.png" alt="Programa Cuida tu Moto"
+                <img src="img/dgsgm-card-moto.png" alt="Programa Cuida tu Moto"
                   onerror="this.style.padding='40px 20px';this.style.background='#e8f1fb'">
               </div>
             </div>
@@ -2981,7 +3004,7 @@ function heroGoNovedades(){
         .coord-card{background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.6);border-radius:14px;padding:20px 18px;display:flex;align-items:center;gap:14px;transition:all var(--t);cursor:pointer;width:100%;text-align:left;font-family:var(--font-sans);backdrop-filter:blur(4px);min-height:80px}
         .coord-card:hover{background:#fff;border-color:var(--azul-claro);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,59,113,.14)}
         .coord-dot{width:10px;height:10px;border-radius:50%;background:var(--azul);flex-shrink:0;margin-top:2px}
-        .coord-name{font-size:16px;font-weight:600;color:var(--azul);line-height:1.35}
+        .coord-name{font-size:16px;font-weight:600;color:var(--azul);line-height:1.35;text-align:justify;text-justify:inter-word}
         @media(max-width:900px){.coord-grid{grid-template-columns:repeat(2,1fr)!important;gap:12px!important}}
         @media(max-width:580px){.coord-grid{grid-template-columns:1fr!important;gap:10px!important}.coord-card{min-height:60px;padding:16px 14px}.coord-name{font-size:15px}}
         /* Modal área */
@@ -3015,9 +3038,21 @@ function heroGoNovedades(){
   </svg>
 </div>
 <span id="est-crace"></span>
-      <div class="dir-showcase dir-showcase-colored" style="background:linear-gradient(145deg,#003B71 0%,#1565C0 55%,#1976D2 100%);border-bottom:none">
+      <div class="dir-showcase dir-showcase-colored spamsu-pattern-fade" style="background:#002a52;border-bottom:2px solid rgba(255,255,255,.4)">
         <style>
         .cinig-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--azul-claro);text-transform:uppercase;letter-spacing:.16em;background:rgba(169,198,232,.15);border:1px solid rgba(169,198,232,.3);padding:4px 14px;border-radius:20px;margin-bottom:18px}
+        .spamsu-pattern-fade{position:relative}
+        .spamsu-pattern-fade::before{
+          content:'';position:absolute;inset:0;
+          background-image:url('img/patron-institucional.png');
+          background-repeat:repeat;background-size:260px 260px;
+          -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 50%,#000 100%);
+          mask-image:linear-gradient(to bottom,transparent 0%,transparent 50%,#000 100%);
+          -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+          -webkit-mask-size:100% 100%;mask-size:100% 100%;
+          pointer-events:none;z-index:0;
+        }
+        .spamsu-pattern-fade .dir-showcase-body{position:relative;z-index:1}
         .cinig-title{font-family:var(--font-serif);font-size:clamp(22px,2.4vw,30px);font-weight:700;color:#fff;line-height:1.22;margin-bottom:8px}
         .cinig-subtitle{font-size:13px;font-weight:600;color:var(--azul-claro);letter-spacing:.06em;text-transform:uppercase;margin-bottom:20px}
         .cinig-desc{font-size:16px;color:rgba(255,255,255,.82);line-height:1.85;font-weight:300;text-align:justify;margin-bottom:28px}
@@ -3026,7 +3061,7 @@ function heroGoNovedades(){
         .cinig-cta svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform var(--t)}
         .cinig-cta:hover svg{transform:translateX(3px)}
         .cinig-img-wrap{width:100%;max-width:300px;aspect-ratio:1/1;border-radius:18px;overflow:hidden;background:rgba(255,255,255,.06);border:1px solid rgba(169,198,232,.22);display:flex;align-items:center;justify-content:center;box-shadow:0 16px 48px rgba(0,0,0,.35)}
-        .cinig-img-wrap img{width:100%;height:100%;object-fit:contain}
+        .cinig-img-wrap img{width:100%;height:100%;object-fit:cover}
         .cinig-img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;width:100%;height:100%}
         .cinig-img-ph span{font-family:'Courier New',monospace;font-size:12px;font-weight:700;color:rgba(169,198,232,.7);background:rgba(255,255,255,.06);border:1px solid rgba(169,198,232,.22);padding:4px 12px;border-radius:4px}
         .cinig-divider{width:40px;height:3px;background:var(--azul-claro);border-radius:2px;margin-bottom:20px}
@@ -3060,7 +3095,7 @@ function heroGoNovedades(){
            CINIG — después de CRACE (sin parallax, fondo propio)
       ══════════════════════════════════════ -->
       <span id="est-cinig"></span>
-      <div class="dir-showcase dir-showcase-colored" style="background:linear-gradient(145deg,#002a52 0%,#003B71 55%,#004e96 100%);border-bottom:none">
+      <div class="dir-showcase dir-showcase-colored spamsu-pattern-fade" style="background:#002a52;border-bottom:none">
         <div class="dir-showcase-body" style="max-width:1000px;margin:0 auto">
           <div class="dir-showcase-img-col">
             <div class="cinig-img-wrap">
@@ -3099,7 +3134,7 @@ function heroGoNovedades(){
             </div>
           </div>
           <div class="dir-showcase-text-col">
-            <h2 class="cinig-title">Comisiones Locales de Seguridad · CLS</h2>
+            <h2 class="cinig-title">CLS · Comisiones Locales de Seguridad</h2>
             <div class="cinig-subtitle">Órgano colegiado · SPAMSU UNAM</div>
             <div class="cinig-divider"></div>
             <p class="cinig-desc">Las CLS son órganos colegiados conformados por integrantes de todos los sectores universitarios para proponer y aplicar medidas de prevención, movilidad y protección civil en las entidades y dependencias de la UNAM. Su fundamento se encuentra en el Capítulo V del Reglamento de la Comisión Especial de Seguridad del Consejo Universitario.</p>
@@ -3123,6 +3158,7 @@ function heroGoNovedades(){
       <h2 class="sec-title">Servicios para la comunidad universitaria</h2>
 
       <div class="srv-grid">
+        <!-- Fila 1 -->
         <!-- 1. Protección Civil -->
         <a href="https://seguridadyproteccion.unam.mx/" target="_blank" rel="noopener" class="srv-card">
           <div class="srv-img"><div data-img="srv-pcivil" data-alt="Protección Civil"></div></div>
@@ -3153,6 +3189,7 @@ function heroGoNovedades(){
             <span class="srv-cta">Ver más →</span>
           </div>
         </div>
+        <!-- Fila 2 -->
         <!-- 5. Unidad Canina -->
         <div class="srv-card srv-card-k9" onclick="openK9Modal()" style="cursor:pointer">
           <div class="srv-img"><div data-img="srv-k9" data-alt="Unidad Canina UNAM"></div></div>
@@ -3183,6 +3220,7 @@ function heroGoNovedades(){
             <span class="srv-cta">Ver más →</span>
           </div>
         </div>
+        <!-- Fila 3 -->
         <!-- 6. Pumabús -->
         <div class="srv-card" style="cursor:pointer" onclick="openModal('modal-pumabus')">
           <div class="srv-img"><div data-img="srv-pumabus" data-alt="Pumabús UNAM"></div></div>
@@ -3203,17 +3241,18 @@ function heroGoNovedades(){
             <span class="srv-cta">Ir al sitio →</span>
           </div>
         </a>
-        <!-- 8 y 9 centradas — fila final -->
-        <div style="grid-column:1/-1;display:flex;justify-content:center;gap:18px;flex-wrap:wrap">
-          <a href="https://www.dgsgm.unam.mx/brigada.html" target="_blank" rel="noopener" class="srv-card" style="width:calc(33.333% - 9px);min-width:260px">
-            <div class="srv-img"><div data-img="srv-brigada" data-alt="Brigada Vial UNAM"></div></div>
-            <div class="srv-body">
-              <div class="srv-icon srv-icon-png"><img src="img/icons/icon-srv-brigada.png" alt="Brigada Vial"></div>
-              <div class="srv-title">Brigada Vial</div>
-              <p class="srv-desc">Programa de apoyo vial y seguridad en la circulación dentro del campus universitario.</p>
-              <span class="srv-cta">Ir al sitio &rarr;</span>
-            </div>
-          </a>
+        <!-- 8. Brigada Vial -->
+        <a href="https://www.dgsgm.unam.mx/brigada.html" target="_blank" rel="noopener" class="srv-card">
+          <div class="srv-img"><div data-img="srv-brigada" data-alt="Brigada Vial UNAM"></div></div>
+          <div class="srv-body">
+            <div class="srv-icon srv-icon-png"><img src="img/icons/icon-srv-brigada.png" alt="Brigada Vial"></div>
+            <div class="srv-title">Brigada Vial</div>
+            <p class="srv-desc">Programa de apoyo vial y seguridad en la circulación dentro del campus universitario.</p>
+            <span class="srv-cta">Ir al sitio →</span>
+          </div>
+        </a>
+        <!-- Fila 4 — Línea Única centrada -->
+        <div style="grid-column:1/-1;display:flex;justify-content:center">
           <div class="srv-card" style="width:calc(33.333% - 9px);min-width:260px">
             <div class="srv-img"><div data-img="srv-linea-incidentes" data-alt="Línea Única de Incidentes UNAM"><img src="img/servicios/srv-linea-incidentes.png" alt="Línea Única de Incidentes UNAM"></div></div>
             <div class="srv-body">
@@ -3227,13 +3266,16 @@ function heroGoNovedades(){
 
       </div><!-- /srv-grid -->
 
-      </div><!-- /srv-institutional-bg -->
+    </div>
 
-      <!-- Banner decorativo -->
-      <div class="srv-greca-bg" aria-hidden="true"><img src="img/servicios/srv-greca-decorativa.png" alt=""></div>
+    <!-- Banner decorativo greca -->
+    <div class="srv-greca-bg" aria-hidden="true"><img src="img/servicios/srv-greca-decorativa.png" alt=""></div>
 
-      <!-- Senderos + middle -->
-      <div class="srv-senderos-bg">
+    <!-- ╔══════════════════════════════╗
+         SERVICIOS
+    ╚══════════════════════════════╝ -->
+    <!-- Senderos + middle -->
+      <div class="srv-senderos-bg spamsu-pattern-fade-senderos">
       <!-- Senderos Universitarios -->
       <span id="novedades-senderos"></span>
       <div class="senderos-grid">
@@ -3590,6 +3632,8 @@ function heroGoNovedades(){
     .ci-tab.active{color:#6a1a8a;background:#fff;border-bottom-color:#6a1a8a;box-shadow:0 -2px 12px rgba(106,26,138,.08)}
     /* Panels */
     .ci-panel{display:none;padding:36px 44px 52px;background:#fff;animation:slideInRight .3s ease}
+    .ci-panel p{text-align:justify;text-justify:inter-word;word-break:normal;overflow-wrap:normal}
+    .ci-panel li{text-align:justify;text-justify:inter-word}
     .ci-panel.active{display:block}
     .ci-body{max-width:900px}
     .ci-section-title{font-family:var(--font-serif);font-size:20px;font-weight:700;color:#4a1060;margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #f0e8fb}
@@ -3619,11 +3663,11 @@ function heroGoNovedades(){
     </style>
 
     <button onclick="panelGoBack()" class="panel-back-btn">
-        <span class="panel-back-circle">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </span>
-        Regresar a Estructura
-      </button>
+      <span class="panel-back-circle">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </span>
+      Regresar a Estructura
+    </button>
 
     <!-- Hero -->
     <div class="ci-hero" style="position:relative">
@@ -3836,12 +3880,12 @@ function heroGoNovedades(){
   <div class="tab-panel panel-tab-only" id="panel-crace">
 
     <style>
-    .cr-hero{background:linear-gradient(135deg,#003B71 0%,#1565C0 55%,#1976D2 100%);padding:28px 44px 40px;position:relative;overflow:hidden}
+    .cr-hero{background:linear-gradient(180deg,rgba(0,20,45,.82) 0%,rgba(0,20,45,.35) 40%,transparent 65%),url('img/estructura/crace-banner.jpg') center/cover no-repeat;padding:20px 44px 30px;position:relative;overflow:hidden}
     .cr-hero::after{content:'';position:absolute;right:-60px;top:-60px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
-    .cr-hero-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:rgba(169,198,232,.7);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+    .cr-hero-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:rgba(169,198,232,.7);margin-bottom:8px;display:flex;align-items:center;gap:8px}
     .cr-hero-tag::before{content:'';width:20px;height:2px;background:rgba(255,255,255,.5);border-radius:1px;display:block}
-    .cr-hero h1{font-family:var(--font-serif);font-size:clamp(26px,3.5vw,42px);font-weight:700;color:#fff;margin-bottom:10px}
-    .cr-hero p{font-size:15px;color:rgba(255,255,255,.8);font-weight:300;max-width:680px;line-height:1.75;margin-bottom:36px}
+    .cr-hero h1{font-family:var(--font-serif);font-size:clamp(24px,3vw,36px);font-weight:700;color:#fff;margin:0 0 8px}
+    .cr-hero p{font-size:14px;color:rgba(255,255,255,.85);font-weight:300;max-width:680px;line-height:1.6;margin:0}
     
     /* Tabs */
     .cr-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:20px 44px 0;background:#f8fbff;border-bottom:2px solid #dde8f4;overflow-x:auto;scrollbar-width:none}
@@ -3851,10 +3895,12 @@ function heroGoNovedades(){
     .cr-tab.active{color:var(--azul);background:#fff;border-bottom-color:var(--azul);box-shadow:0 -2px 12px rgba(0,59,113,.07)}
     /* Panels */
     .cr-panel{display:none;padding:36px 44px 52px;background:#fff;animation:slideInRight .3s ease}
+    .cr-panel p{text-align:justify;text-justify:inter-word;word-break:normal;overflow-wrap:normal}
+    .cr-panel li{text-align:justify;text-justify:inter-word}
     .cr-panel.active{display:block}
     .cr-body{max-width:860px}
     .cr-section-title{font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--azul);margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid #eef3fb}
-    .cr-text{font-size:15.5px;color:#2D3748;line-height:1.85;font-weight:400}
+    .cr-text{font-size:15.5px;color:#2D3748;line-height:1.85;font-weight:400;text-align:justify;text-justify:inter-word;word-break:normal;overflow-wrap:normal}
     /* Funciones list */
     .cr-func-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
     .cr-func-item{display:flex;align-items:flex-start;gap:14px;background:#f8fbff;border:1px solid #dde8f4;border-radius:12px;padding:16px 18px;border-left:4px solid var(--azul)}
@@ -3892,19 +3938,14 @@ function heroGoNovedades(){
     @media(max-width:640px){.cr-hero{padding:32px 20px 0}.cr-tabs{padding:16px 20px 0}.cr-panel{padding:24px 20px 36px}.cr-integ-grid,.cr-recursos-grid{grid-template-columns:1fr}}
     </style>
 
-    <button onclick="panelGoBack()" class="panel-back-btn">
-        <span class="panel-back-circle">
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </span>
-        Regresar a Estructura
-      </button>
-
+    <button onclick="panelGoBack()" class="panel-back-btn"><span class="panel-back-circle"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></span>Regresar a Estructura</button>
     <!-- Hero -->
     <div class="cr-hero" style="position:relative">
-      <div class="cr-hero-tag">Órgano colegiado · UNAM</div>
-      <h1>CRACE</h1>
-      <p>Colegio de Responsables de Atención a la Comunidad Estudiantil de la Universidad Nacional Autónoma de México</p>
-
+      <div style="text-align:center;max-width:720px;margin:0 auto">
+        <div class="cr-hero-tag" style="justify-content:center">Órgano colegiado</div>
+        <h1>CRACE</h1>
+        <p style="margin-left:auto;margin-right:auto">Colegio de Responsables de Atención a la Comunidad Estudiantil de la Universidad Nacional Autónoma de México</p>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -4052,54 +4093,44 @@ function heroGoNovedades(){
 
   </div><!-- /panel-crace -->
 
-  <!-- ══════════════════════════════════════════════════════════
-       PANEL: COMISIONES LOCALES DE SEGURIDAD (CLS)
-  ══════════════════════════════════════════════════════════ -->
+  <!-- ══ PANEL: COMISIONES LOCALES DE SEGURIDAD (CLS) ══ -->
   <div class="tab-panel panel-tab-only" id="panel-cls">
     <style>
     .cls-hero{background:linear-gradient(135deg,#003B71 0%,#005DA8 55%,#1976D2 100%);padding:28px 44px 40px;position:relative;overflow:hidden}
-    .cls-hero::after{content:'';position:absolute;right:-60px;bottom:-60px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,.04);pointer-events:none}
     .cls-hero-tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:rgba(169,198,232,.7);margin-bottom:12px;display:flex;align-items:center;gap:8px}
     .cls-hero-tag::before{content:'';width:20px;height:2px;background:var(--azul-claro);border-radius:1px;display:block}
     .cls-hero h1{font-family:var(--font-serif);font-size:clamp(28px,4vw,46px);font-weight:700;color:#fff;margin-bottom:12px}
-    .cls-hero p{font-size:15px;color:rgba(255,255,255,.75);font-weight:300;max-width:620px;line-height:1.7;margin-bottom:0}
-    .cls-hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.18;pointer-events:none}
-    .cls-body{padding:44px;background:#f7faff;max-width:1200px;margin:0 auto}
-    .cls-intro{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-bottom:44px;align-items:start}
-    .cls-intro-text h2{font-family:var(--font-serif);font-size:22px;color:var(--azul);margin-bottom:10px}
-    .cls-intro-text p{font-size:15px;color:var(--gris-txt);line-height:1.75;margin-bottom:14px}
-    .cls-intro-text .cls-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--azul-claro);margin-bottom:6px}
-    .cls-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .cls-card{background:#fff;border:1px solid #dde8f4;border-radius:14px;padding:24px;transition:box-shadow .2s,transform .2s}
-    .cls-card:hover{box-shadow:0 8px 24px rgba(0,59,113,.12);transform:translateY(-2px)}
-    .cls-card-icon{width:44px;height:44px;border-radius:10px;background:rgba(169,198,232,.18);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
-    .cls-card-icon svg{width:22px;height:22px;stroke:var(--azul);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-    .cls-card h3{font-family:var(--font-serif);font-size:16px;font-weight:700;color:var(--azul);margin-bottom:8px}
-    .cls-card p{font-size:13.5px;color:var(--gris-txt);line-height:1.7}
+    .cls-hero p{font-size:15px;color:rgba(255,255,255,.75);font-weight:300;max-width:620px;line-height:1.7}
+    .cls-hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.18;pointer-events:none}
+    .cls-body{padding:44px;background:#f7faff}
+    .cls-intro{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:44px;align-items:start}
+    .cls-body p, .cls-body li, .cls-card p{text-align:justify;text-justify:inter-word;word-break:normal;overflow-wrap:normal}
+    .cls-card{border-radius:16px;padding:28px 28px 24px;}
+    .cls-card-cls{background:linear-gradient(135deg,#e8f1fb 0%,#ddeaf8 100%);border:1.5px solid #b8d0ec}
+    .cls-card-epu{background:linear-gradient(135deg,#d6e8f8 0%,#c4d9f0 100%);border:1.5px solid #90bce0}
+    .cls-intro-text h2{font-family:var(--font-serif);font-size:22px;color:var(--azul);margin-bottom:12px}
+    .cls-intro-text p{font-size:15px;color:var(--gris-txt);line-height:1.75;margin-bottom:10px;text-align:justify;text-justify:inter-word;word-break:normal;overflow-wrap:normal}
+    .cls-tag-label{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.14em;padding:6px 14px;border-radius:20px;display:inline-block;margin-bottom:14px}
+    .cls-tag-cls{background:#003B71;color:#fff}
+    .cls-tag-epu{background:#005DA8;color:#fff}
     .cls-section-title{font-family:var(--font-serif);font-size:20px;color:var(--azul);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #dde8f4}
     .cls-funciones{background:#fff;border-radius:14px;border:1px solid #dde8f4;padding:28px;margin-bottom:36px}
     .cls-funciones ul{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px}
-    .cls-funciones ul li{font-size:13.5px;color:var(--gris-txt);line-height:1.6;padding-left:18px;position:relative}
+    .cls-funciones ul li{font-size:13.5px;color:var(--gris-txt);line-height:1.6;padding-left:18px;position:relative;text-align:justify;text-justify:inter-word;word-break:normal;overflow-wrap:normal}
     .cls-funciones ul li::before{content:'›';position:absolute;left:0;color:var(--azul-claro);font-weight:700;font-size:16px}
-    .cls-recom{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:44px}
-    .cls-recom-card{background:#fff;border:1px solid #dde8f4;border-radius:12px;padding:20px;transition:box-shadow .2s}
-    .cls-recom-card:hover{box-shadow:0 6px 18px rgba(0,59,113,.1)}
+    .cls-recom{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px}
+    .cls-recom-card{background:#fff;border:1px solid #dde8f4;border-radius:12px;padding:20px}
     .cls-recom-num{font-size:28px;font-weight:800;color:rgba(169,198,232,.4);font-family:var(--font-serif);line-height:1;margin-bottom:8px}
     .cls-recom-card h4{font-size:13px;font-weight:700;color:var(--azul);margin-bottom:6px;line-height:1.4}
-    .cls-recom-card p{font-size:12.5px;color:var(--gris-txt);line-height:1.6}
-    @media(max-width:900px){.cls-intro{grid-template-columns:1fr}.cls-card-grid{grid-template-columns:1fr}.cls-funciones ul{grid-template-columns:1fr}.cls-recom{grid-template-columns:1fr 1fr}}
+    .cls-recom-card p{font-size:12.5px;color:var(--gris-txt);line-height:1.6;text-align:justify;text-justify:inter-word;word-break:normal;overflow-wrap:normal}
+    .cls-footnote{font-size:12.5px;color:var(--gris-sub);line-height:1.6;padding:16px 20px;background:#fff;border-radius:10px;border:1px solid #dde8f4;margin-top:8px}
+    @media(max-width:900px){.cls-intro{grid-template-columns:1fr}.cls-funciones ul{grid-template-columns:1fr}.cls-recom{grid-template-columns:1fr 1fr}}
     @media(max-width:640px){.cls-hero{padding:32px 20px}.cls-body{padding:28px 20px}.cls-recom{grid-template-columns:1fr}}
     </style>
 
-    <button onclick="panelGoBack()" class="panel-back-btn">
-      <span class="panel-back-circle">
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </span>
-      Regresar a Estructura
-    </button>
+    <button onclick="panelGoBack()" class="panel-back-btn"><span class="panel-back-circle"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></span>Regresar a Estructura</button>
 
-    <!-- Hero -->
-    <div class="cls-hero" style="position:relative">
+    <div class="cls-hero">
       <img src="img/servicios/srv-comisiones.jpg" alt="" class="cls-hero-bg-img" onerror="this.style.display='none'">
       <div class="cls-hero-tag">Órgano colegiado · SPAMSU UNAM</div>
       <h1>Comisiones Locales de Seguridad</h1>
@@ -4107,25 +4138,21 @@ function heroGoNovedades(){
     </div>
 
     <div class="cls-body">
-
-      <!-- Intro: CLS y EPU -->
       <div class="cls-intro">
-        <div class="cls-intro-text">
-          <div class="cls-tag">¿Qué son?</div>
+        <div class="cls-intro-text cls-card cls-card-cls">
+          <span class="cls-tag-label cls-tag-cls">¿Qué son?</span>
           <h2>La Comisión Local de Seguridad (CLS)</h2>
           <p>Es el órgano colegiado que se conforma con integrantes de todos los sectores para proponer y aplicar medidas de prevención, movilidad y protección civil.</p>
-          <p>Su objetivo es reforzar la seguridad, prevenir la violencia y evitar actos ilícitos en su comunidad, además de plantear estrategias para fortalecer una cultura de la Protección Civil.</p>
-          <p style="font-size:13px;color:var(--gris-sub)">Fundamento: Capítulo V del Reglamento de la Comisión Especial de Seguridad del Consejo Universitario de la UNAM (RCECU) y Lineamientos publicados en Gaceta UNAM el 22 de mayo de 2023.</p>
+          <p>Su objetivo es reforzar la seguridad, prevenir la violencia y evitar actos ilícitos en su comunidad.*</p>
         </div>
-        <div class="cls-intro-text">
-          <div class="cls-tag">¿Quién las coordina?</div>
+        <div class="cls-intro-text cls-card cls-card-epu">
+          <span class="cls-tag-label cls-tag-epu">¿Quién las coordina?</span>
           <h2>El Enlace de Prevención Universitaria (EPU)</h2>
-          <p>Es la persona designada como secretario de la CLS por el titular de la entidad o dependencia. Será capacitada en prevención, seguridad, protección civil y movilidad.</p>
-          <p>Su función es implementar, junto con los integrantes de las CLS, los programas y acciones en materia de prevención, seguridad, movilidad y protección civil.</p>
+          <p>Es la persona designada como secretario de la CLS por el titular de la entidad o dependencia, capacitada en prevención, seguridad, protección civil y movilidad.</p>
+          <p>Su función es implementar, junto con los integrantes de las CLS, los programas y acciones correspondientes.</p>
         </div>
       </div>
 
-      <!-- Funciones de la SPAMSU -->
       <div class="cls-funciones">
         <h2 class="cls-section-title">Funciones de la SPAMSU con las CLS y los EPU</h2>
         <ul>
@@ -4135,65 +4162,32 @@ function heroGoNovedades(){
           <li>Recibir y atender consultas respecto de las funciones de los EPU.</li>
           <li>Apoyar a los EPU en situaciones de controversia o conflicto.</li>
           <li>Conformar y mantener actualizado un directorio de las CLS.</li>
-          <li>Facilitar información sobre plataformas institucionales (SICLOS, SISEI, PC, Seguridad Física).</li>
+          <li>Facilitar información sobre plataformas institucionales.</li>
           <li>Revisar avances de actas, protocolos y formulaciones de recomendaciones.</li>
           <li>Enviar información institucional relevante a las CLS y EPU.</li>
           <li>Ofrecer apoyo ante situaciones de riesgo en las instalaciones.</li>
         </ul>
       </div>
 
-      <!-- Recomendaciones -->
       <h2 class="cls-section-title">Recomendaciones a las CLS y los EPU</h2>
       <div class="cls-recom">
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">01</div>
-          <h4>Organizar charlas informativas breves y dinámicas</h4>
-          <p>Pláticas de 10 a 15 minutos en aulas o auditorios abordando ¿Qué es la CLS?, ¿Quién la integra? y aspectos de seguridad en el plantel.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">02</div>
-          <h4>Crear y difundir infografías sobre seguridad, movilidad y protección civil</h4>
-          <p>Carteles y folletos físicos o digitales con las funciones clave de la CLS, colocados en espacios comunes y promovidos mediante códigos QR.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">03</div>
-          <h4>Publicar contenido en redes sociales oficiales</h4>
-          <p>Publicaciones periódicas con mensajes cortos, videos o carruseles que presenten las funciones, acciones y logros de la CLS.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">04</div>
-          <h4>Organizar simulacros participativos</h4>
-          <p>Invitar a toda la comunidad a participar en simulacros de emergencia (sismo, incendio, fugas) con la participación activa de los miembros de la CLS.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">05</div>
-          <h4>Colocar puntos de contacto y difundir su uso</h4>
-          <p>Mantener un espacio físico y/o digital con avisos actualizados sobre actividades, protocolos y contactos de la CLS.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">06</div>
-          <h4>Incluir cápsulas informativas en eventos culturales</h4>
-          <p>Aprovechar ceremonias, ferias y eventos deportivos para dedicar unos minutos a explicar la labor de la CLS.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">07</div>
-          <h4>Elaborar videos testimoniales</h4>
-          <p>Breves cápsulas con entrevistas a miembros de la comunidad, resaltando casos de éxito en prevención y atención de emergencias.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">08</div>
-          <h4>Implementar campañas temáticas por temporada</h4>
-          <p>Por ejemplo: en época de lluvias, difundir medidas preventivas y cómo la CLS coordina acciones para evitar riesgos.</p>
-        </div>
-        <div class="cls-recom-card">
-          <div class="cls-recom-num">09</div>
-          <h4>Mantener canales de comunicación directa</h4>
-          <p>Habilitar correo, buzón digital, QR o número de WhatsApp para que la comunidad pueda reportar incidentes o solicitar información fácilmente.</p>
-        </div>
+        <div class="cls-recom-card"><div class="cls-recom-num">01</div><h4>Organizar charlas informativas breves y dinámicas</h4><p>Pláticas de 10 a 15 minutos en aulas o auditorios sobre ¿Qué es la CLS? y aspectos de seguridad en el plantel.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">02</div><h4>Crear y difundir infografías sobre seguridad</h4><p>Carteles y folletos físicos o digitales con las funciones clave de la CLS, promovidos mediante códigos QR.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">03</div><h4>Publicar contenido en redes sociales oficiales</h4><p>Publicaciones periódicas con mensajes cortos o videos que presenten las funciones y logros de la CLS.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">04</div><h4>Organizar simulacros participativos</h4><p>Invitar a toda la comunidad a participar en simulacros de emergencia con la participación activa de los miembros de la CLS.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">05</div><h4>Colocar puntos de contacto y difundir su uso</h4><p>Mantener un espacio físico y/o digital con avisos actualizados sobre actividades, protocolos y contactos de la CLS.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">06</div><h4>Incluir cápsulas informativas en eventos</h4><p>Aprovechar ceremonias y eventos para dedicar unos minutos a explicar la labor de la CLS.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">07</div><h4>Elaborar videos testimoniales</h4><p>Breves cápsulas con entrevistas a miembros de la comunidad, resaltando casos de éxito en prevención.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">08</div><h4>Implementar campañas temáticas por temporada</h4><p>Por ejemplo: en época de lluvias, difundir medidas preventivas y cómo la CLS coordina acciones.</p></div>
+        <div class="cls-recom-card"><div class="cls-recom-num">09</div><h4>Mantener canales de comunicación directa</h4><p>Habilitar correo, buzón digital o WhatsApp para que la comunidad pueda reportar incidentes fácilmente.</p></div>
       </div>
 
-    </div><!-- /cls-body -->
+      <div class="cls-footnote">* Fundamento: Capítulo V del Reglamento de la Comisión Especial de Seguridad del Consejo Universitario de la UNAM (RCECU) y Lineamientos publicados en Gaceta UNAM el 22 de mayo de 2023.</div>
+    </div>
   </div><!-- /panel-cls -->
+
+
+  <div class="tab-panel panel-tab-only" id="panel-marco-juridico">
 
     <style>
     .mj-hero{background:linear-gradient(135deg,#002244 0%,#003B71 55%,#1565C0 100%);padding:28px 44px 40px;position:relative;overflow:hidden}
@@ -4225,14 +4219,13 @@ function heroGoNovedades(){
     @media(max-width:640px){.mj-hero{padding:32px 20px 0}.mj-tabs{padding:16px 20px 0}.mj-panel{padding:24px 20px 36px}.mj-grid{grid-template-columns:1fr}.mj-tab{font-size:12px;padding:9px 16px}}
     </style>
 
-    <button onclick="panelGoBack()" class="panel-back-btn">
+    <button onclick="panelGoBack()" class="panel-back-btn"><span class="panel-back-circle"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></span>Regresar</button>
+    <div class="mj-hero" style="position:relative">
         <span class="panel-back-circle">
           <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </span>
         Regresar
       </button>
-
-    <div class="mj-hero" style="position:relative">
       <div class="mj-hero-tag">Normatividad SPAMSU · UNAM</div>
       <h1>Normatividad</h1>
       <p>Consulta la legislación, reglamentos, lineamientos y disposiciones universitarias que rigen las actividades de seguridad, movilidad y prevención en la UNAM.</p>
@@ -4531,6 +4524,8 @@ function heroGoNovedades(){
 <div class="dcard-role" style="color:var(--gris-sub)">Jefe del Departamento de Educación en Seguridad y Autoprotección</div>
 <div class="dcard-chips"><a href="mailto:jdvalores@unam.mx" class="dcard-pill dcard-pill-mail" style="background:#eef3fb;border-color:#dde8f4;color:var(--azul)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>jdvalores@unam.mx</a></div>
 </div></div>
+</div>
+</div>
 <div class="dgrp-head"><div class="dgrp-line"></div><div class="dgrp-label">Enlace con Instancias de Gobierno</div><div class="dgrp-line" style="flex:1"></div></div>
 <div class="dgrp-cards">
 <div class="dcard" style="border:1px solid #e2eaf5;background:#fff">
@@ -5224,18 +5219,18 @@ function heroGoNovedades(){
       <h3 style="font-family:var(--font-serif);font-size:22px;font-weight:700;color:var(--azul);margin-bottom:24px">Planes y Programas</h3>
       <div class="srv-grid">
         <!-- PMS -->
-        <div class="srv-card" style="cursor:pointer" onclick="openPmsModal()" onmouseover="this.style.boxShadow='0 8px 28px rgba(0,59,113,.18)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
+        <a href="https://consejo.unam.mx/comisiones/CES/docs/PMS-UNAM_2026-2027.pdf" target="_blank" rel="noopener" class="srv-card" style="text-decoration:none;display:flex;flex-direction:column;cursor:pointer" onmouseover="this.style.boxShadow='0 8px 28px rgba(0,59,113,.18)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
           <div class="srv-img"><div data-img="proyecto-pms" data-alt="PMS"></div></div>
           <div class="srv-body">
             <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
             <div class="srv-title">PMS</div>
-            <p class="srv-desc" style="text-align:justify;text-justify:inter-word;line-height:1.85;hyphens:auto;-webkit-hyphens:auto">El PMS-UNAM podrá organizar, regular y orientar el funcionamiento de las estructuras de trabajo y las acciones preventivas y correctivas para lograr condiciones de tranquilidad y seguridad dentro de las entidades académicas, dependencias universitarias y zonas comunes de la UNAM.</p>
+            <p class="srv-desc" style="text-align:justify;text-justify:inter-word;line-height:1.85">El PMS-UNAM podrá organizar, regular y orientar el funcionamiento de las estructuras de trabajo y las acciones preventivas y correctivas para lograr condiciones de tranquilidad y seguridad dentro de las entidades académicas, dependencias universitarias y zonas comunes de la UNAM.</p>
             <span class="srv-cta" style="display:inline-flex;align-items:center;gap:6px">
-              Ver presentaci&#243;n
+              Ver documento
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
             </span>
           </div>
-        </div>
+        </a>
         <!-- [PROYECTO-+] Agregar mas proyectos aqui -->
         <!-- PISBA -->
         <a href="https://consejo.unam.mx/comisiones/CES/docs/PISBA.pdf" target="_blank" rel="noopener" class="srv-card" style="text-decoration:none;display:flex;flex-direction:column;cursor:pointer" onmouseover="this.style.boxShadow='0 8px 28px rgba(0,59,113,.18)';this.style.transform='translateY(-3px)'" onmouseout="this.style.boxShadow='';this.style.transform=''">
@@ -5243,7 +5238,7 @@ function heroGoNovedades(){
           <div class="srv-body">
             <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg></div>
             <div class="srv-title">PISBA</div>
-            <p class="srv-desc" style="text-align:justify;text-justify:inter-word;line-height:1.85;hyphens:auto;-webkit-hyphens:auto">El PISBA constituye un instrumento institucional orientado a fortalecer la seguridad en los planteles del bachillerato universitario, mediante la reducción de vulnerabilidades del estudiantado; el fortalecimiento de la prevención a través de acciones de información y capacitación; la mejora de la infraestructura de seguridad; el establecimiento de protocolos específicos para la atención de situaciones de riesgo; la promoción de la salud integral; y la atención de fenómenos de alto impacto.</p>
+            <p class="srv-desc" style="text-align:justify;text-justify:inter-word;line-height:1.85">El PISBA constituye un instrumento institucional orientado a fortalecer la seguridad en los planteles del bachillerato universitario, mediante la reducción de vulnerabilidades del estudiantado; el fortalecimiento de la prevención a través de acciones de información y capacitación; la mejora de la infraestructura de seguridad; el establecimiento de protocolos específicos para la atención de situaciones de riesgo; la promoción de la salud integral; y la atención de fenómenos de alto impacto.</p>
             <span class="srv-cta" style="display:inline-flex;align-items:center;gap:6px">
               Descargar PDF
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -5327,7 +5322,7 @@ function heroGoNovedades(){
       .cap-intro{display:flex;gap:18px;align-items:flex-start;background:linear-gradient(135deg,rgba(169,198,232,.14),rgba(169,198,232,.04));border:1px solid var(--gris-borde);border-radius:14px;padding:22px 26px;margin-bottom:30px}
       .cap-intro-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#003B71,#1565C0);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 6px 18px rgba(0,59,113,.25)}
       .cap-intro-icon svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-      .cap-intro-text{font-size:14.5px;color:var(--gris-txt);line-height:1.85;font-weight:300;text-align:justify;text-justify:inter-word;hyphens:auto}
+      .cap-intro-text{font-size:14.5px;color:var(--gris-txt);line-height:1.85;font-weight:300;text-align:justify;text-justify:inter-word}
       .cap-intro-text strong{color:var(--azul);font-weight:700}
 
       /* ── Oferta: tarjetas ── */
@@ -5375,12 +5370,12 @@ function heroGoNovedades(){
       .cap-acc-body{display:grid;grid-template-columns:1fr 380px;gap:32px;padding:28px 30px;background:#fff;animation:fadeIn .25s ease;align-items:start}
       .cap-acc-body.collapsed{display:none}
       .cap-acc-obj-label,.cap-acc-tem-label{font-size:15px;font-weight:700;color:var(--azul);margin-bottom:6px}
-      .cap-acc-obj-text{font-size:15.5px;color:var(--gris-txt);font-weight:300;line-height:1.85;text-align:justify;text-justify:inter-word;hyphens:auto;margin-bottom:16px}
+      .cap-acc-obj-text{font-size:15.5px;color:var(--gris-txt);font-weight:300;line-height:1.85;text-align:justify;text-justify:inter-word;margin-bottom:16px}
       .cap-acc-dur{font-size:14.5px;color:var(--gris-txt);margin-bottom:16px}
       .cap-acc-dur strong{color:var(--azul)}
       .cap-acc-temario{margin:0 0 18px;padding-left:22px}
       .cap-acc-temario li{font-size:14.5px;color:var(--gris-txt);line-height:1.85;text-align:justify;text-justify:inter-word}
-      .cap-acc-contact{font-size:14px;color:var(--gris-sub);font-weight:300;line-height:1.8;padding-top:14px;border-top:1px solid var(--gris-borde);text-align:justify;text-justify:inter-word;hyphens:auto}
+      .cap-acc-contact{font-size:14px;color:var(--gris-sub);font-weight:300;line-height:1.8;padding-top:14px;border-top:1px solid var(--gris-borde);text-align:justify;text-justify:inter-word}
       .cap-acc-contact a{color:#E67E22;font-weight:700;text-decoration:none}
       .cap-acc-contact a.prev-link{color:#C9962E}
       .cap-acc-contact strong{color:var(--azul)}
@@ -6202,22 +6197,164 @@ function heroGoNovedades(){
       .act-list li{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:#3d4f63;line-height:1.5}
       .act-list li::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--azul-claro);flex-shrink:0;margin-top:6px}
 
-      /* Video mp4 */
-      .act-video-wrap{border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,59,113,.16);background:#000;aspect-ratio:9/16;max-width:340px;margin:0 auto;width:100%}
+      /* ── Keyframes para círculos decorativos ── */
+      /* ── Keyframes animaciones de marcos ── */
+      @keyframes blobFloat1{0%,100%{transform:translateY(0) scale(1)}45%{transform:translateY(-14px) scale(1.07)}75%{transform:translateY(7px) scale(.96)}}
+      @keyframes blobFloat2{0%,100%{transform:translateY(0)}40%{transform:translateY(12px) scale(.94)}68%{transform:translateY(-9px) scale(1.05)}}
+      @keyframes blobFloat3{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(15deg)}}
+      @keyframes blobPulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+      @keyframes borderGlow{
+        0%,100%{box-shadow:0 0 0 0 rgba(0,59,113,.0),0 10px 36px rgba(0,59,113,.20)}
+        50%{box-shadow:0 0 0 5px rgba(122,174,212,.35),0 14px 48px rgba(0,59,113,.32)}
+      }
+      @keyframes borderGlow2{
+        0%,100%{box-shadow:0 0 0 0 rgba(169,198,232,.0),0 10px 36px rgba(0,59,113,.18)}
+        50%{box-shadow:0 0 0 5px rgba(0,59,113,.22),0 14px 48px rgba(0,59,113,.28)}
+      }
+
+      /* ══════════════════════════════════════════
+         FRAME DINÁMICO — VIDEO (Sección 1)
+         Marco: azul oscuro (#003B71) grueso
+      ══════════════════════════════════════════ */
+      .act-video-frame{
+        position:relative;
+        max-width:340px;margin:0 auto;
+        padding:22px 22px 22px 16px;
+      }
+      /* Marco principal: azul institucional oscuro, borde grueso */
+      .act-video-frame::before{
+        content:'';position:absolute;
+        top:12px;left:0;right:12px;bottom:0;
+        border-radius:52px;
+        border:10px solid #003B71;
+        animation:borderGlow 3s ease-in-out infinite;
+        z-index:0;
+      }
+      /* Segundo marco desplazado: azul medio */
+      .act-video-frame::after{
+        content:'';position:absolute;
+        top:0;left:12px;right:0;bottom:12px;
+        border-radius:52px;
+        border:6px solid #7AAED4;
+        animation:borderGlow2 3s ease-in-out infinite .8s;
+        z-index:0;
+      }
+      .act-video-wrap{
+        position:relative;z-index:1;
+        border-radius:40px;overflow:hidden;
+        box-shadow:0 10px 36px rgba(0,59,113,.28);
+        background:#000;aspect-ratio:9/16;width:100%;
+      }
       .act-video-wrap video{width:100%;height:100%;display:block;object-fit:cover}
+      /* Círculos decorativos — solo colores institucionales */
+      .act-video-frame .blob{position:absolute;border-radius:50%;z-index:2;pointer-events:none}
+      .act-video-frame .blob-1{width:44px;height:44px;background:#003B71;top:-14px;right:4px;animation:blobFloat1 3.4s ease-in-out infinite}
+      .act-video-frame .blob-2{width:30px;height:30px;background:#A9C6E8;top:16px;right:-12px;animation:blobFloat2 2.9s ease-in-out infinite .5s}
+      .act-video-frame .blob-3{width:58px;height:58px;background:#7AAED4;bottom:20px;left:-18px;animation:blobFloat1 4s ease-in-out infinite .7s}
+      .act-video-frame .blob-4{width:22px;height:22px;background:#003B71;bottom:72px;left:6px;animation:blobPulse 2.6s ease-in-out infinite 1.1s}
 
-      /* Gallery collage — 3 columnas, imágenes verticales sin recorte */
-      .act-gallery-wrap{padding:8px 0}
-      .act-collage{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:start}
-      .act-collage-main,.act-collage-side{border-radius:14px;overflow:hidden;box-shadow:0 6px 24px rgba(0,59,113,.13)}
-      .act-collage img{width:100%;height:auto;display:block;transition:transform .4s ease}
-      .act-collage img:hover{transform:scale(1.03)}
-      .act-gallery-title{font-family:var(--font-serif);font-size:clamp(16px,2vw,22px);font-weight:700;color:var(--azul);text-align:center;margin-bottom:20px}
-
-      /* Instagram float */
-      .act-insta-wrap{border-radius:16px;overflow:hidden;box-shadow:0 8px 32px rgba(0,59,113,.16);max-width:340px;margin:0 auto;width:100%}
+      /* ══════════════════════════════════════════
+         FRAME DINÁMICO — INSTAGRAM (Sección 3)
+         Marco: azul medio (#7AAED4) grueso
+      ══════════════════════════════════════════ */
+      .act-insta-frame{
+        position:relative;
+        max-width:340px;margin:0 auto;
+        padding:20px 16px 20px 22px;
+      }
+      .act-insta-frame::before{
+        content:'';position:absolute;
+        top:0;left:12px;right:0;bottom:12px;
+        border-radius:52px;
+        border:10px solid #7AAED4;
+        animation:borderGlow2 3.6s ease-in-out infinite;
+        z-index:0;
+      }
+      .act-insta-frame::after{
+        content:'';position:absolute;
+        top:12px;left:0;right:12px;bottom:0;
+        border-radius:52px;
+        border:6px solid #003B71;
+        animation:borderGlow 3.6s ease-in-out infinite .9s;
+        z-index:0;
+      }
+      .act-insta-wrap{
+        position:relative;z-index:1;
+        border-radius:40px;overflow:hidden;
+        box-shadow:0 10px 36px rgba(0,59,113,.22);
+        width:100%;
+      }
       .act-insta-wrap.floating{animation:actFloat 3.5s ease-in-out infinite}
       .act-insta-wrap iframe{width:100%;border:none;display:block}
+      .act-insta-frame .blob{position:absolute;border-radius:50%;z-index:2;pointer-events:none}
+      .act-insta-frame .blob-1{width:52px;height:52px;background:#A9C6E8;top:-16px;right:12px;animation:blobFloat2 3.5s ease-in-out infinite}
+      .act-insta-frame .blob-2{width:30px;height:30px;background:#003B71;top:12px;right:-12px;animation:blobPulse 2.8s ease-in-out infinite .4s}
+      .act-insta-frame .blob-3{width:62px;height:62px;background:#7AAED4;bottom:14px;left:-20px;animation:blobFloat1 4.2s ease-in-out infinite .8s}
+      .act-insta-frame .blob-4{width:22px;height:22px;background:#003B71;bottom:78px;left:4px;animation:blobFloat3 3.2s ease-in-out infinite 1.3s}
+
+      /* ══════════════════════════════════════════
+         GALERÍA DE ACTIVIDADES
+      ══════════════════════════════════════════ */
+      .act-gallery-wrap{padding:8px 0}
+      .act-gallery-title{
+        font-family:var(--font-serif);font-size:clamp(16px,2vw,22px);font-weight:700;
+        color:var(--azul);text-align:center;margin-bottom:32px;
+        position:relative;display:inline-block;left:50%;transform:translateX(-50%);
+      }
+      .act-gallery-title::after{
+        content:'';display:block;width:64px;height:4px;
+        background:linear-gradient(90deg,#003B71,#7AAED4,#A9C6E8);
+        border-radius:2px;margin:10px auto 0;
+      }
+
+      .act-collage{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;align-items:center}
+
+      /* Cada imagen con su marco propio */
+      .act-collage-item{position:relative;padding:12px}
+      .act-collage-item::before{
+        content:'';position:absolute;
+        border-radius:40px;z-index:0;
+        animation:borderGlow 3.2s ease-in-out infinite;
+      }
+      .act-collage-item::after{
+        content:'';position:absolute;
+        border-radius:40px;z-index:0;
+        animation:borderGlow2 3.2s ease-in-out infinite .7s;
+      }
+      /* img 1: marco azul oscuro desplazado abajo-derecha + azul medio arriba-izquierda */
+      .act-collage-item:nth-child(1)::before{border:9px solid #003B71;top:10px;left:4px;right:0;bottom:0;animation-delay:0s}
+      .act-collage-item:nth-child(1)::after{border:5px solid #7AAED4;top:0;left:0;right:10px;bottom:4px;animation-delay:.4s}
+      /* img 2: azul medio desplazado + azul claro */
+      .act-collage-item:nth-child(2)::before{border:9px solid #7AAED4;top:0;left:10px;right:0;bottom:10px;animation-delay:.6s}
+      .act-collage-item:nth-child(2)::after{border:5px solid #A9C6E8;top:10px;left:0;right:0;bottom:0;animation-delay:1s}
+      /* img 3: azul oscuro desplazado arriba + azul medio abajo */
+      .act-collage-item:nth-child(3)::before{border:9px solid #003B71;top:0;left:0;right:10px;bottom:10px;animation-delay:.3s}
+      .act-collage-item:nth-child(3)::after{border:5px solid #7AAED4;top:10px;left:10px;right:0;bottom:0;animation-delay:.9s}
+
+      /* Círculos decorativos galería */
+      .act-collage-item .act-collage-blob{position:absolute;border-radius:50%;z-index:3;pointer-events:none}
+      .act-collage-item:nth-child(1) .act-collage-blob-a{width:32px;height:32px;background:#7AAED4;top:-10px;right:8px;animation:blobFloat1 3.2s ease-in-out infinite}
+      .act-collage-item:nth-child(1) .act-collage-blob-b{width:20px;height:20px;background:#003B71;bottom:-4px;left:12px;animation:blobFloat2 3.6s ease-in-out infinite .5s}
+      .act-collage-item:nth-child(2) .act-collage-blob-a{width:28px;height:28px;background:#A9C6E8;top:-8px;left:10px;animation:blobFloat2 3s ease-in-out infinite .7s}
+      .act-collage-item:nth-child(2) .act-collage-blob-b{width:18px;height:18px;background:#003B71;bottom:0;right:8px;animation:blobPulse 2.7s ease-in-out infinite}
+      .act-collage-item:nth-child(3) .act-collage-blob-a{width:34px;height:34px;background:#003B71;top:-10px;left:6px;animation:blobFloat1 3.4s ease-in-out infinite .4s}
+      .act-collage-item:nth-child(3) .act-collage-blob-b{width:22px;height:22px;background:#7AAED4;bottom:-4px;right:10px;animation:blobFloat3 4s ease-in-out infinite .9s}
+
+      .act-collage-inner{
+        position:relative;z-index:1;
+        border-radius:28px;overflow:hidden;
+        box-shadow:0 10px 30px rgba(0,59,113,.18);
+        width:100%;
+      }
+      .act-collage-inner img{width:100%;height:auto;display:block;transition:transform .5s ease}
+      .act-collage-inner img:hover{transform:scale(1.04)}
+      .act-collage-inner .act-gal-ph{
+        width:100%;min-height:200px;
+        background:linear-gradient(135deg,rgba(0,59,113,.10),rgba(122,174,212,.20));
+        display:flex;align-items:center;justify-content:center;
+        color:var(--azul-med);font-size:13px;font-weight:600;
+        border-radius:28px;
+      }
 
       /* Stagger list items */
       .act-list li{opacity:0;transform:translateX(12px);transition:opacity .4s ease,transform .4s ease}
@@ -6236,8 +6373,13 @@ function heroGoNovedades(){
 
       @media(max-width:700px){
         .act-two-col{grid-template-columns:1fr}
-        .act-video-wrap,.act-insta-wrap{max-width:100%;margin:24px auto 0}
+        .act-video-frame,.act-insta-frame{max-width:100%;margin:24px auto 0}
+        .act-collage{grid-template-columns:1fr 1fr}
+        .act-collage-item:nth-child(3){grid-column:1/-1}
+      }
+      @media(max-width:480px){
         .act-collage{grid-template-columns:1fr}
+        .act-collage-item:nth-child(3){grid-column:auto}
       }
       </style>
 
@@ -6246,10 +6388,16 @@ function heroGoNovedades(){
         <div class="act-two-col">
           <!-- Video — izquierda -->
           <div class="act-block act-from-left" id="act-vid1">
-            <div class="act-video-wrap">
-              <video controls preload="metadata">
-                <source src="videos/actividades-presentacion.mp4#t=0.1" type="video/mp4">
-              </video>
+            <div class="act-video-frame">
+              <span class="blob blob-1"></span>
+              <span class="blob blob-2"></span>
+              <span class="blob blob-3"></span>
+              <span class="blob blob-4"></span>
+              <div class="act-video-wrap">
+                <video controls preload="metadata">
+                  <source src="videos/actividades-presentacion.mp4#t=0.1" type="video/mp4">
+                </video>
+              </div>
             </div>
           </div>
           <!-- Texto — derecha -->
@@ -6283,17 +6431,29 @@ function heroGoNovedades(){
         <div class="act-block act-from-up" id="act-gal">
           <div class="act-gallery-title">Galería de Actividades</div>
           <div class="act-collage">
-            <div class="act-collage-main act-block act-from-left" id="act-gal1" style="transition-delay:.05s">
-              <img src="img/galeria/actividades-galeria-1.jpg" alt="Galería actividades 1"
-                   onerror="this.style.background='var(--azul-pale)';this.style.minHeight='200px'">
+            <div class="act-collage-item act-block act-from-left" id="act-gal1" style="transition-delay:.05s">
+              <span class="act-collage-blob act-collage-blob-a"></span>
+              <span class="act-collage-blob act-collage-blob-b"></span>
+              <div class="act-collage-inner">
+                <img src="img/galeria/actividades-galeria-1.jpg" alt="Galería actividades 1"
+                     onerror="this.parentElement.innerHTML='<div class=act-gal-ph>📷</div>'">
+              </div>
             </div>
-            <div class="act-collage-side act-block act-from-right" id="act-gal2" style="transition-delay:.15s">
-              <img src="img/galeria/actividades-galeria-2.jpg" alt="Galería actividades 2"
-                   onerror="this.style.background='var(--azul-pale)';this.style.minHeight='120px'">
+            <div class="act-collage-item act-block act-from-up" id="act-gal2" style="transition-delay:.18s">
+              <span class="act-collage-blob act-collage-blob-a"></span>
+              <span class="act-collage-blob act-collage-blob-b"></span>
+              <div class="act-collage-inner">
+                <img src="img/galeria/actividades-galeria-2.jpg" alt="Galería actividades 2"
+                     onerror="this.parentElement.innerHTML='<div class=act-gal-ph>📷</div>'">
+              </div>
             </div>
-            <div class="act-collage-side act-block act-from-right" id="act-gal3" style="transition-delay:.28s">
-              <img src="img/galeria/actividades-galeria-3.jpg" alt="Galería actividades 3"
-                   onerror="this.style.background='var(--azul-pale)';this.style.minHeight='120px'">
+            <div class="act-collage-item act-block act-from-right" id="act-gal3" style="transition-delay:.32s">
+              <span class="act-collage-blob act-collage-blob-a"></span>
+              <span class="act-collage-blob act-collage-blob-b"></span>
+              <div class="act-collage-inner">
+                <img src="img/galeria/actividades-galeria-3.jpg" alt="Galería actividades 3"
+                     onerror="this.parentElement.innerHTML='<div class=act-gal-ph>📷</div>'">
+              </div>
             </div>
           </div>
         </div>
@@ -6315,13 +6475,19 @@ function heroGoNovedades(){
           </div>
           <!-- Instagram — derecha -->
           <div class="act-block act-from-right" id="act-ig3">
-            <div class="act-insta-wrap floating">
-              <blockquote class="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/reel/DUDoHO5Eaf_/"
-                data-instgrm-version="14"
-                style="width:100%;margin:0;border:none;background:#fff">
-              </blockquote>
-              <script async src="//www.instagram.com/embed.js"></script>
+            <div class="act-insta-frame">
+              <span class="blob blob-1"></span>
+              <span class="blob blob-2"></span>
+              <span class="blob blob-3"></span>
+              <span class="blob blob-4"></span>
+              <div class="act-insta-wrap floating">
+                <blockquote class="instagram-media"
+                  data-instgrm-permalink="https://www.instagram.com/reel/DUDoHO5Eaf_/"
+                  data-instgrm-version="14"
+                  style="width:100%;margin:0;border:none;background:#fff">
+                </blockquote>
+                <script async src="//www.instagram.com/embed.js"></script>
+              </div>
             </div>
           </div>
         </div>
@@ -7096,12 +7262,6 @@ function heroGoNovedades(){
         <div class="footer-unam-full">Universidad Nacional Aut&#243;noma de M&#233;xico</div>
         <div class="footer-unam-years">1551 &ndash; 2026</div>
         <div class="footer-social">
-          <a href="https://www.instagram.com/spamsu_unam" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          </a>
-          <a href="https://www.youtube.com/@spamsu_unam" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
-          </a>
         </div>
       </div>
 
@@ -7211,7 +7371,7 @@ function heroGoNovedades(){
 /* ── Modal Botiquín de Primeros Auxilios ── */
 .botiquin-modal-box{position:relative;max-width:680px;width:100%;animation:modalIn .3s cubic-bezier(.4,0,.2,1)}
 .botiquin-modal-img{border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.4);background:#fff;aspect-ratio:1/1}
-.botiquin-modal-close{position:absolute;top:-46px;right:0;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.4);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
+.botiquin-modal-close{position:absolute;top:-46px;right:0;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
 .botiquin-modal-close:hover{background:rgba(255,255,255,.32)}
 /* Botón continuar */
 .disclaimer-close-link{
@@ -7463,13 +7623,6 @@ function heroGoNovedades(){
     <!-- Grid 4×2 de tarjetas -->
     <div class="ep-grid">
 
-      <!-- 1. CAE -->
-      <a href="tel:5556222597" class="ep-item">
-        <div class="ep-badge" style="background:#002060;font-size:11px;letter-spacing:.02em">CAE</div>
-        <div class="ep-item-name">Central de Atención de Emergencias</div>
-        <div class="ep-item-phone">55-5622-2597</div>
-      </a>
-
       <!-- 2. Postes -->
       <div class="ep-item">
         <div class="ep-badge" style="background:#E65100">
@@ -7477,15 +7630,6 @@ function heroGoNovedades(){
         </div>
         <div class="ep-item-name">Postes de Emergencia</div>
         <div class="ep-item-desc">Se localizan en diferentes puntos del campus</div>
-      </div>
-
-      <!-- 3. Teléfono de Emergencia -->
-      <div class="ep-item">
-        <div class="ep-badge" style="background:#F9A825">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 8.9a16 16 0 006.29 6.29l1.27-.77a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-        </div>
-        <div class="ep-item-name">Teléfono de Emergencia</div>
-        <div class="ep-item-desc">Al descolgar será atendida su llamada</div>
       </div>
 
       <!-- 4. SOS UNAM -->
@@ -7499,33 +7643,6 @@ function heroGoNovedades(){
         <div class="ep-item-desc">Descarga la app oficial</div>
       </div>
 
-      <!-- 5. Protección Civil -->
-      <a href="tel:5556226552" class="ep-item">
-        <div class="ep-badge" style="background:#E65100">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="ep-item-name">Protección Civil</div>
-        <div class="ep-item-phone">55-5622-6552</div>
-      </a>
-
-      <!-- 6. Bomberos UNAM -->
-      <a href="tel:5556161560" class="ep-item">
-        <div class="ep-badge" style="background:#C62828">
-          <svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 01-7 7 7 7 0 01-7-7c0-1.99.806-2.967 2.5-4.5z"/></svg>
-        </div>
-        <div class="ep-item-name">Bomberos UNAM</div>
-        <div class="ep-item-phone">55-5616-1560</div>
-      </a>
-
-      <!-- 7. Línea Reacción Puma -->
-      <a href="tel:5556226464" class="ep-item">
-        <div class="ep-badge" style="background:#F57F17">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg>
-        </div>
-        <div class="ep-item-name">Línea de Reacción Puma</div>
-        <div class="ep-item-phone">55-5622-6464</div>
-      </a>
-
       <!-- 8. 911 -->
       <a href="tel:911" class="ep-item">
         <div class="ep-badge" style="background:#2E7D32;font-size:22px;font-weight:900;letter-spacing:-.5px">911</div>
@@ -7534,6 +7651,11 @@ function heroGoNovedades(){
         <div class="ep-item-desc">Policía · Ambulancia · Bomberos</div>
       </a>
 
+    </div>
+
+    <!-- Imagen: Línea Única de Atención a Incidentes UNAM -->
+    <div class="ep-banner">
+      <img src="img/servicios/srv-linea-incidentes.png" alt="Línea Única de Atención a Incidentes UNAM">
     </div>
 
     <!-- Footer -->
@@ -7566,41 +7688,19 @@ function heroGoNovedades(){
 (function(){
   var X=['jpg','jpeg','png','webp','gif'];
   var D='img/';
-  /* Mapa de subcarpetas por prefijo de nombre */
-  var FOLDERS={
-    'srv-':'img/servicios/',
-    'pc-':'img/proteccion-civil/',
-    'prev-':'img/prevencion/',
-    'proyecto-':'img/proyectos/',
-    'logo-':'img/logos/',
-    'spamsu':'img/logos/',
-    'area-':'img/areas/',
-    'puzzle-':'img/valores/',
-    'cartel-':'img/carteles/',
-    'portada-guia-':'img/guias/',
-    'mapa-tab-':'img/mapas/',
-    'send-':'img/senderos/',
-    'footer-':'img/footer/',
-    'disclaimer-':'img/disclaimer/',
-    'img_nav-':'img/nav/',
-    'hero-':'img/novedades/',
-    'dgapsu-':'img/estructura/',
-    'dgsgm-':'img/estructura/',
-    'cinig-banner':'img/estructura/',
-    'crace-banner':'img/estructura/',
-    'actividades-':'img/galeria/',
-    'decalogo-':'img/decalogo/',
-    '60_img_':'img/carousel/'
-  };
-  function getFolder(fn){
-    var keys=Object.keys(FOLDERS);
-    for(var k=0;k<keys.length;k++){if(fn.indexOf(keys[k])===0)return FOLDERS[keys[k]];}
-    return D;
-  }
+  var FOLDERS={'srv-':'img/servicios/','pc-':'img/proteccion-civil/','prev-':'img/prevencion/',
+    'proyecto-':'img/proyectos/','logo-':'img/logos/','spamsu':'img/logos/',
+    'area-':'img/areas/','puzzle-':'img/valores/','cartel-':'img/carteles/',
+    'portada-guia-':'img/guias/','mapa-tab-':'img/mapas/','send-':'img/senderos/',
+    'footer-':'img/footer/','disclaimer-':'img/disclaimer/','img_nav-':'img/nav/',
+    'hero-':'img/novedades/','dgapsu-':'img/estructura/','dgsgm-':'img/estructura/',
+    'cinig-banner':'img/estructura/','crace-banner':'img/estructura/',
+    'actividades-':'img/galeria/','decalogo-':'img/decalogo/','60_img_':'img/carousel/'};
+  function getFolder(fn){var keys=Object.keys(FOLDERS);for(var k=0;k<keys.length;k++){if(fn.indexOf(keys[k])===0)return FOLDERS[keys[k]];}return D;}
   function ph(fn){return'<div class="sph"><div class="sph-icon">🖼</div><div class="sph-name">'+fn+'</div><div class="sph-badge">Imagen pendiente</div></div>'}
-  function load(el){var fn=el.getAttribute('data-img');if(!fn)return;var alt=el.getAttribute('data-alt')||fn;var folder=getFolder(fn);var i=0;function next(){if(i>=X.length){el.innerHTML=ph(fn);return;}var p=new Image();var src=folder+fn+'.'+X[i++];p.onload=function(){el.innerHTML='';var img=document.createElement('img');img.src=src;img.alt=alt;el.appendChild(img);};p.onerror=next;p.src=src;}next();}
+  function load(el){var fn=el.getAttribute('data-img');if(!fn)return;var alt=el.getAttribute('data-alt')||fn;var i=0;function next(){if(i>=X.length){el.innerHTML=ph(fn);return;}var p=new Image();var src=getFolder(fn)+fn+'.'+X[i++];p.onload=function(){el.innerHTML='';var img=document.createElement('img');img.src=src;img.alt=alt;el.appendChild(img);};p.onerror=next;p.src=src;}next();}
   function init(){document.querySelectorAll('[data-img]').forEach(function(el){var fn=el.getAttribute('data-img');var inFooter=!!el.closest('.site-footer');if(fn==='footer-bg'||inFooter){loadSilent(el);}else{load(el);}});}
-  function loadSilent(el){var fn=el.getAttribute('data-img');if(!fn)return;var alt=el.getAttribute('data-alt')||fn;var folder=getFolder(fn);var i=0;function next(){if(i>=X.length)return;var p=new Image();var src=folder+fn+'.'+X[i++];p.onload=function(){el.innerHTML='';var img=document.createElement('img');img.src=src;img.alt=alt;el.appendChild(img);};p.onerror=next;p.src=src;}next();}
+  function loadSilent(el){var fn=el.getAttribute('data-img');if(!fn)return;var alt=el.getAttribute('data-alt')||fn;var i=0;function next(){if(i>=X.length)return;var p=new Image();var src=getFolder(fn)+fn+'.'+X[i++];p.onload=function(){el.innerHTML='';var img=document.createElement('img');img.src=src;img.alt=alt;el.appendChild(img);};p.onerror=next;p.src=src;}next();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
@@ -8283,19 +8383,20 @@ window.addEventListener('load', function(){
 
 <script>
 (function(){
-  var TOTAL=11;
+  var IMGS=[0,1,2,3,4,5,6,7,8,9,10,11,12];
+  var TOTAL=IMGS.length;
   var PREFIX='img/servicios/k9-infografia-';
   var EXT='.jpg';
-  var cur=1;
+  var curIdx=0;
 
   function buildDots(){
     var wrap=document.getElementById('k9Dots');
     if(!wrap)return;
     wrap.innerHTML='';
-    for(var i=1;i<=TOTAL;i++){
+    for(var i=0;i<TOTAL;i++){
       var d=document.createElement('button');
-      d.className='k9-dot'+(i===1?' active':'');
-      d.setAttribute('aria-label','Imagen '+i);
+      d.className='k9-dot'+(i===0?' active':'');
+      d.setAttribute('aria-label','Imagen '+(i+1));
       d.onclick=(function(idx){return function(){k9Go(idx);};})(i);
       wrap.appendChild(d);
     }
@@ -8305,17 +8406,17 @@ window.addEventListener('load', function(){
     var img=document.getElementById('k9Img');
     var counter=document.getElementById('k9Counter');
     var dots=document.querySelectorAll('.k9-dot');
-    if(img){img.style.opacity='0';setTimeout(function(){img.src=PREFIX+cur+EXT;img.style.opacity='1';},120);}
-    if(counter)counter.textContent=cur+' de '+TOTAL;
-    dots.forEach(function(d,i){d.classList.toggle('active',i+1===cur);});
+    if(img){img.style.opacity='0';setTimeout(function(){img.src=PREFIX+IMGS[curIdx]+EXT;img.style.opacity='1';},120);}
+    if(counter)counter.textContent=(curIdx+1)+' de '+TOTAL;
+    dots.forEach(function(d,i){d.classList.toggle('active',i===curIdx);});
   }
 
-  window.k9Go=function(idx){cur=((idx-1+TOTAL)%TOTAL)+1;updateUI();};
-  window.k9Prev=function(){k9Go(cur-1);};
-  window.k9Next=function(){k9Go(cur+1);};
+  window.k9Go=function(idx){curIdx=((idx%TOTAL)+TOTAL)%TOTAL;updateUI();};
+  window.k9Prev=function(){k9Go(curIdx-1);};
+  window.k9Next=function(){k9Go(curIdx+1);};
 
   window.openK9Modal=function(){
-    cur=1;buildDots();updateUI();
+    curIdx=0;buildDots();updateUI();
     var m=document.getElementById('modal-k9');
     if(m){m.classList.add('open');document.body.style.overflow='hidden';}
   };
@@ -8333,6 +8434,7 @@ window.addEventListener('load', function(){
   });
 })();
 </script>
+
 
 <!-- ══ MODAL: Bicipuma ══ -->
 <div class="modal-bg" id="modal-bicipuma" onclick="if(event.target===this){closeModal('modal-bicipuma');biciStop()}" role="dialog" aria-modal="true">
@@ -8861,6 +8963,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closePmsModa
   document.querySelectorAll('.dir-showcase').forEach(function(sec){
     var bg=sec.getAttribute('style')||'';
     if(bg.indexOf('1565C0')<0&&bg.indexOf('1976D2')<0&&bg.indexOf('002a52')<0&&bg.indexOf('003B71')<0)return;
+    if(bg.indexOf('patron-institucional')>=0)return;
     var dark=bg.indexOf('002a52')>=0||bg.indexOf('004e96')>=0;
     inject(sec,function(){
       var s=svg('0 0 1100 440');
